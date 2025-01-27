@@ -1,0 +1,11 @@
+@Tags.API_HostAddress = https://localhost:7006
+
+###
+ 
+GET {{Tags.API_HostAddress}}/tag?Page=1&PageSize=100&Order=asc&Sort=name
+
+###
+
+GET {{Tags.API_HostAddress}}/tag/DownloadTags?Page=1&PageSize=100&Order=asc&Sort=name
+
+###

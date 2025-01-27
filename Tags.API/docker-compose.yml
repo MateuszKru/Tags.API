@@ -1,0 +1,34 @@
+services:
+  webapi:
+    build:
+      context: ..
+      dockerfile: Tags.API/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__ApplicationDbConnection=Server=172.18.0.2,1433;Database=TagsDb;User=sa;Password=Password!123;TrustServerCertificate=True;
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password!123
+    ports:
+      - "1433:1433"
+    volumes:
+      - db_data:/var/opt/mssql
+    networks:
+      - app-network
+
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge
